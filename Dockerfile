@@ -1,3 +1,3 @@
-FROM debian:jessie-slim
-RUN apt update && apt install -y s3cmd
+FROM python:3.7.4-slim-buster 
+RUN pip install s3cmd
 
