@@ -1,0 +1,15 @@
+FROM python:3.7.4-slim-buster 
+
+ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
+
+RUN pip install s3cmd && \
+    apt update && \
+    apt install -y apt-transport-https gnupg2 curl && \
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
+    apt update && \
+    apt install -y sysstat fio kubectl && \
+    apt-get clean autoclean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/
+
